@@ -4,7 +4,8 @@ using iengine.Connective;
 
 namespace iengine.Utils
 {
-	// TODO: Support generic propositional logic.
+	// TODO: Respect brackets in sentence (a & b) => (~c => d)
+	// TODO: Add support for negated sentences ~(a & b) => c
 	public class SolvableFactory
 	{
 		private static readonly List<string> _connectives = new List<string>{"<=>", "=>", "&", "|"};

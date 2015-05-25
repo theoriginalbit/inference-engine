@@ -11,7 +11,7 @@ namespace iengine.Utils
 		public Symbol(string identifier)
 		{
 			// is this symbol negated
-			_negation = identifier.Contains("~");
+			_negation = identifier.StartsWith("~");
 			// remove the negation from this symbol
 			Identifier = identifier.Replace("~", "");
 		}
