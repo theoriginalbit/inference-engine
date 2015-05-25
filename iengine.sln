@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iengine", "iengine.csproj", "{A7D0B2C8-6BED-45FC-9262-71D342CDC318}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iengine.Connective", "iengine.Connective\iengine.Connective.csproj", "{A5D5846C-1A14-45EF-9EDA-5F19762BFBDB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iengine.Utils", "iengine.KnowledgeBase\iengine.Utils.csproj", "{B1276DAE-BC99-4AC4-90CD-D2E54C40AA6E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iengine.Algorithms", "iengine.Algorithms\iengine.Algorithms.csproj", "{956048E0-2DD8-423A-BF35-5EF1D7F00692}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{956048E0-2DD8-423A-BF35-5EF1D7F00692}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{956048E0-2DD8-423A-BF35-5EF1D7F00692}.Debug|x86.Build.0 = Debug|Any CPU
+		{956048E0-2DD8-423A-BF35-5EF1D7F00692}.Release|x86.ActiveCfg = Release|Any CPU
+		{956048E0-2DD8-423A-BF35-5EF1D7F00692}.Release|x86.Build.0 = Release|Any CPU
+		{A5D5846C-1A14-45EF-9EDA-5F19762BFBDB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A5D5846C-1A14-45EF-9EDA-5F19762BFBDB}.Debug|x86.Build.0 = Debug|Any CPU
+		{A5D5846C-1A14-45EF-9EDA-5F19762BFBDB}.Release|x86.ActiveCfg = Release|Any CPU
+		{A5D5846C-1A14-45EF-9EDA-5F19762BFBDB}.Release|x86.Build.0 = Release|Any CPU
+		{A7D0B2C8-6BED-45FC-9262-71D342CDC318}.Debug|x86.ActiveCfg = Debug|x86
+		{A7D0B2C8-6BED-45FC-9262-71D342CDC318}.Debug|x86.Build.0 = Debug|x86
+		{A7D0B2C8-6BED-45FC-9262-71D342CDC318}.Release|x86.ActiveCfg = Release|x86
+		{A7D0B2C8-6BED-45FC-9262-71D342CDC318}.Release|x86.Build.0 = Release|x86
+		{B1276DAE-BC99-4AC4-90CD-D2E54C40AA6E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B1276DAE-BC99-4AC4-90CD-D2E54C40AA6E}.Debug|x86.Build.0 = Debug|Any CPU
+		{B1276DAE-BC99-4AC4-90CD-D2E54C40AA6E}.Release|x86.ActiveCfg = Release|Any CPU
+		{B1276DAE-BC99-4AC4-90CD-D2E54C40AA6E}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
