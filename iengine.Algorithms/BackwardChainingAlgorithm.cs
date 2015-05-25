@@ -5,8 +5,16 @@ using iengine.Utils;
 
 namespace iengine.Algorithms
 {
+	/// <summary>
+	/// The backward chaining algorithm class. This class is static, as it is used specifically as a processor, rather than a data object.
+	/// </summary>
 	public static class BackwardChainingAlgorithm
 	{
+		/// <summary> 
+		/// Ask the provided knowledgebase if it satisifies the query using the backward chaining algorithm.
+		/// </summary>
+		/// <param name="kb">A knowledgebase to query.</param>
+		/// <param name="query">The query to ask</param>
 		public static List<string> Ask(KnowledgeBase kb, Query query)
 		{
 			Queue<string> agenda = new Queue<string>();
@@ -28,7 +36,14 @@ namespace iengine.Algorithms
 			return solved;
 		}
 
-		public static bool SolveAgenda(List<ISolvable> unsolvedSentences, Queue<string> agenda, List<string> solvedVariables)
+		/// <summary>
+		/// Continues to process the agenda to check if the query is met.
+		/// </summary>
+		/// <returns><c>true</c>, if agenda was solved, <c>false</c> otherwise.</returns>
+		/// <param name="unsolvedSentences">The sentences in the knowledgebase that haven't yet been queried.</param>
+		/// <param name="agenda">The sentences available.</param>
+		/// <param name="solvedVariables">The sentences already processed.</param>
+		private static bool SolveAgenda(List<ISolvable> unsolvedSentences, Queue<string> agenda, List<string> solvedVariables)
 		{
 			// the value symbol to try solve
 			string currentSymbol = agenda.Dequeue();
@@ -53,7 +68,7 @@ namespace iengine.Algorithms
 
 				// get the symbols in the output of the sentence
 				ISet<string> outputSymbols = new HashSet<string>();
-				output.AddSymbols(outputSymbols);
+				output.FillSymbols(outputSymbols);
 
 				// if the symbol we're looking for appears in the output of the sentence
 				if (outputSymbols.Contains(currentSymbol))
@@ -67,7 +82,7 @@ namespace iengine.Algorithms
 
 					// get the symbols in the input of the sentence
 					ISet<string> inputSymbols = new HashSet<string>();
-					input.AddSymbols(inputSymbols);
+					input.FillSymbols(inputSymbols);
 
 					// add the input symbols to the agenda as long as its not already in there or solved
 					foreach (string symbol in inputSymbols)

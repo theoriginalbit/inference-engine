@@ -46,15 +46,20 @@ namespace iengine
 			}
 		}
 			
-
+		/// <summary>
+		/// Parses the file to create the knowledge base and retrieve the query.
+		/// </summary>
+		/// <param name="fileContents">the string containing the contents of the file</param>
 		public static void ParseFile(string[] fileContents)
 		{
 			string tell = "", ask = "";
 
 			for(int i = 0; i < fileContents.Length; i++)
 			{
+				// if the line says TELL, assume the next line contains the information.
 				if (fileContents[i] == "TELL")
 					tell = fileContents[i + 1];
+				// if the line says ASK, assume the next line contains the search query.
 				else if (fileContents[i] == "ASK")
 					ask = fileContents[i + 1];
 			}

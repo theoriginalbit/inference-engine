@@ -6,8 +6,16 @@ using System.Collections.Generic;
 
 namespace iengine.Algorithms
 {
+	/// <summary>
+	/// The forward chaining algorithm class. This class is static, as it is used specifically as a processor, rather than a data object.
+	/// </summary>
 	public static class ForwardChainingAlgorithm
 	{
+		/// <summary> 
+		/// Ask the provided knowledgebase if it satisifies the query using the forward chaining algorithm.
+		/// </summary>
+		/// <param name="kb">A knowledgebase to query.</param>
+		/// <param name="query">The query to ask</param>
 		public static List<string> Ask(KnowledgeBase kb, Query query)
 		{
 			List<string> known = new List<string>();
@@ -26,6 +34,13 @@ namespace iengine.Algorithms
 			return known;
 		}
 
+		/// <summary>
+		/// Expands the knowledge base to try find a solution.
+		/// </summary>
+		/// <returns><c>true</c>, if the knowledgebase has been completely expanded, <c>false</c> otherwise.</returns>
+		/// <param name="unsolved">The sentences yet to be processed</param>
+		/// <param name="known">The sentences already processed</param>
+		/// <param name="query">The query to ask.</param>
 		private static bool ExpandKnowledgeBase(List<ISolvable> unsolved, List<string> known, Query query)
 		{
 			List<ISolvable> processed = new List<ISolvable>();
@@ -49,12 +64,12 @@ namespace iengine.Algorithms
 				}
 
 				ISet<string> inputSymbols = new HashSet<string>();
-				input.AddSymbols(inputSymbols);
+				input.FillSymbols(inputSymbols);
 
 				// if this is a symbol (fact) we can add it, however if this is a sentence we only add the output symbols if all the input symbols are known
 				if (!(solvable is Sentence) || inputSymbols.Intersect(known).Count() == inputSymbols.Count)
 				{
-					output.AddSymbols(discovered);
+					output.FillSymbols(discovered);
 					processed.Add(solvable);
 				}
 

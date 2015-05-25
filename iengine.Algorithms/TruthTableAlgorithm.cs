@@ -7,6 +7,11 @@ namespace iengine.Algorithms
 {
 	public static class TruthTableAlgorithm
 	{
+		/// <summary>
+		/// Find the solution using the Truth Table Algorithm, provided a knowledgebase and query.
+		/// </summary>
+		/// <param name="kb">The knowledgebase to search</param>
+		/// <param name="query">The query to search for</param>
 		public static int Ask(KnowledgeBase kb, Query query)
 		{
 			// get the unique symbols in the knowledge base
@@ -25,11 +30,16 @@ namespace iengine.Algorithms
 			return count;
 		}
 
-		private static bool Satisifiable(KnowledgeBase kb, Dictionary<string, bool> inputs)
+		/// <summary>
+		/// Returns whether the objects in the database can be solved using the rows of the table.
+		/// </summary>
+		/// <param name="kb">The knowledgebase to search</param>
+		/// <param name="rows">The rows to check against</param>
+		private static bool Satisifiable(KnowledgeBase kb, Dictionary<string, bool> rows)
 		{
 			// attempt to solve each sentence, if it cannot be solved from the truth table row then it is not satisfiable
 			foreach (ISolvable solvable in kb.Solvables)
-				if (!solvable.Solve(inputs))
+				if (!solvable.Solve(rows))
 					return false;
 
 			return true;

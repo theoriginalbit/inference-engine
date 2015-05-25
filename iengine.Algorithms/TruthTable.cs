@@ -4,17 +4,30 @@ using System.Collections.Generic;
 
 namespace iengine.Algorithms
 {
+	/// <summary>
+	/// A wrapper class to hold values for each row of the truth table.
+	/// </summary>
 	public class Row 
 	{
 		public Dictionary<string, bool> Values { get; set; }
 	}
 
+	/// <summary>
+	/// Creates a truth table object based on the provided symbols.
+	/// </summary>
 	public class TruthTable
 	{
 		public List<Row> Rows { get; } = new List<Row>();
 
+		/// <summary>
+		/// Private instanciation, as we want to instanciate the class properly via the Build method.
+		/// </summary>
 		private TruthTable() {}
 
+		/// <summary>
+		/// Builds a truth table object form the provided symbols.
+		/// </summary>
+		/// <param name="symbols">The individual symbols to use when creating the truth table</param>
 		public static TruthTable Build(ISet<string> symbols)
 		{
 			// create the truth table
