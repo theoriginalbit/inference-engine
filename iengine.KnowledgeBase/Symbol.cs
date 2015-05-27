@@ -52,7 +52,7 @@ namespace iengine.Utils
 		}
 
 		public override string ToString() {
-			return Identifier;
+			return (_negation ? "~" : "") + Identifier;
 		}
 	}
 }

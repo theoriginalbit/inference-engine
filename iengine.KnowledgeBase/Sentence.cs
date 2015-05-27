@@ -59,7 +59,7 @@ namespace iengine.Utils
 		}
 
 		public override string ToString() {
-			return string.Format("({0} {1} {2})", LeftSolvable, _connective, RightSolvable);
+			return string.Format("{0}({1} {2} {3})", _negation ? "~" : "", LeftSolvable, _connective, RightSolvable);
 		}
 	}
 }
