@@ -8,7 +8,7 @@ namespace iengine.Utils
 		/// The item to ask for in the database
 		/// </summary>
 		/// <param name="identifier">The identifier of the query</param>
-		public Query(string identifier) : base(identifier) {}
+		public Query(string identifier) : base(identifier, false) {}
 
 		public override string ToString() {
 			return "ASK\n" + base.ToString();

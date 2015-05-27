@@ -20,12 +20,11 @@ namespace iengine.Utils
 		/// Initializes a new instance of the <see cref="iengine.Utils.Symbol"/> class.
 		/// </summary>
 		/// <param name="identifier">the string represenation of the symbol.</param>
-		public Symbol(string identifier)
+		/// <param name = "negated">whether this symbol was negated</param>
+		public Symbol(string identifier, bool negated)
 		{
-			// is this symbol negated
-			_negation = identifier.StartsWith("~");
-			// remove the negation from this symbol
-			Identifier = identifier.Replace("~", "");
+			_negation = negated;
+			Identifier = identifier;
 		}
 
 		/// <summary>
