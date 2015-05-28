@@ -23,7 +23,7 @@ namespace iengine.Algorithms
 			// count how many rows satisfy the knowledge base
 			int count = 0;
 			foreach(Row row in table.Rows)
-				if (Satisifiable(kb, row.Values))
+				if (IsSatisifiable(kb, row.Values))
 					++count;
 
 			// return how many rows satisfied the knowledge base
@@ -35,9 +35,9 @@ namespace iengine.Algorithms
 		/// </summary>
 		/// <param name="kb">The knowledgebase to search</param>
 		/// <param name="rows">The rows to check against</param>
-		private static bool Satisifiable(KnowledgeBase kb, Dictionary<string, bool> rows)
+		private static bool IsSatisifiable(KnowledgeBase kb, Dictionary<string, bool> rows)
 		{
-			// attempt to solve each sentence, if it cannot be solved from the truth table row then it is not satisfiable
+			// attempt to solve each clause, if it cannot be solved from the truth table row then it is not satisfiable
 			foreach (ISolvable solvable in kb.Solvables)
 				if (!solvable.Solve(rows))
 					return false;

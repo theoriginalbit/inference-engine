@@ -38,8 +38,8 @@ namespace iengine.Algorithms
 		/// Expands the knowledge base to try find a solution.
 		/// </summary>
 		/// <returns><c>true</c>, if the knowledgebase has been completely expanded, <c>false</c> otherwise.</returns>
-		/// <param name="unsolved">The sentences yet to be processed</param>
-		/// <param name="known">The sentences already processed</param>
+		/// <param name="unsolved">The clauses yet to be processed</param>
+		/// <param name="known">The clauses already processed</param>
 		/// <param name="query">The query to ask.</param>
 		private static bool ExpandKnowledgeBase(List<ISolvable> unsolved, List<string> known, Query query)
 		{
@@ -57,16 +57,16 @@ namespace iengine.Algorithms
 				}
 				else if (solvable is Clause)
 				{
-					// the left-hand side of a sentence is the input
+					// the left-hand side of a clause is the input
 					input = (solvable as Clause).LeftSolvable;
-					// the right-hand side of a sentence is the output
+					// the right-hand side of a clause is the output
 					output = (solvable as Clause).RightSolvable;
 				}
 
 				ISet<string> inputSymbols = new HashSet<string>();
 				input.FillSymbols(inputSymbols);
 
-				// if this is a symbol (fact) we can add it, however if this is a sentence we only add the output symbols if all the input symbols are known
+				// if this is a symbol (fact) we can add it, however if this is a clause we only add the output symbols if all the input symbols are known
 				if (!(solvable is Clause) || inputSymbols.Intersect(known).Count() == inputSymbols.Count)
 				{
 					output.FillSymbols(discovered);
@@ -78,11 +78,11 @@ namespace iengine.Algorithms
 					break;
 			}
 
-			// remove solved sentences so they're not solved again
-			foreach (ISolvable sentences in processed)
-				unsolved.Remove(sentences);
+			// remove solved clauses so they're not solved again
+			foreach (ISolvable clauses in processed)
+				unsolved.Remove(clauses);
 
-			// add the discovered symbols to the known list so future sentences can be solved
+			// add the discovered symbols to the known list so future clauses can be solved
 			known.AddRange(discovered);
 
 			// if the knowledge base wasn't changed in some way then we cannot solve any further

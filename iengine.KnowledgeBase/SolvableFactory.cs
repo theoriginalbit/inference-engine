@@ -14,52 +14,52 @@ namespace iengine.Utils
 		private SolvableFactory() {}
 
 		/// <summary>
-		/// Creates an ISolvable object based off of the provided sentence.
+		/// Creates an ISolvable object based off of the provided clause.
 		/// </summary>
-		/// <param name="sentence">the sentence/symbol to process</param>
-		public static ISolvable Create(string sentence)
+		/// <param name="clause">the clause/symbol to process</param>
+		public static ISolvable Create(string clause)
 		{
 			// remove all the spaces from the string because with them building the expression tree is impossibly complex
-			sentence = sentence.Replace(" ", "");
+			clause = clause.Replace(" ", "");
 
-			// whether the sentence is negated
+			// whether the clause is negated
 			bool negated = false;
 
-			// we need to check if there are brackets (potentially negated) surrounding the entire sentence if there
-			// are brackets around the sentence we must remove them so that we can get the containing parts
-			// Note: negated sentences only occur with brackets.
-			if (IsSentenceBracketed(sentence))
+			// we need to check if there are brackets (potentially negated) surrounding the entire clause if there
+			// are brackets around the clause we must remove them so that we can get the containing parts
+			// Note: negated clauses only occur with brackets.
+			if (IsClauseBracketed(clause))
 			{
-				// since we're removing the brackets we must remember if this sentence was negated.
-				negated = sentence.StartsWith("~");
+				// since we're removing the brackets we must remember if this clause was negated.
+				negated = clause.StartsWith("~");
 				// remove the outer brackets, the outer brackets make the parsing difficult, we also strip the negation here
-				sentence = PrepareSentence(sentence);
+				clause = PrepareClause(clause);
 			}
 
-			// check if the sentence contains a connective and if it does create a sentence
+			// check if the clause contains a connective and if it does create a clause
 			foreach (string connective in _connectives)
 			{
 				// check where the connective lies
-				int index = sentence.IndexOf(connective);
+				int index = clause.IndexOf(connective);
 
 				// there was no connective
 				if (index == -1) continue;
 
-				// check if each side of the sentence is perfectly bracketed. if they're perfectly bracketed we can split by
+				// check if each side of the clause is perfectly bracketed. if they're perfectly bracketed we can split by
 				// this connective, otherwise if they're not perfectly bracketed we cannot split by this connective yet
-				if (CanProcess(sentence, index) && CanProcess(sentence, index + connective.Length))
+				if (CanProcess(clause, index) && CanProcess(clause, index + connective.Length))
 				{
-					// "split" out the left side of the sentence
-					string leftSide = sentence.Substring(0, index);
-					// "split" out the right side of the sentence
-					string rightSide = sentence.Substring(index + connective.Length);
-					// return the sentence after having recursively processed the sentence on each side
+					// "split" out the left side of the clause
+					string leftSide = clause.Substring(0, index);
+					// "split" out the right side of the clause
+					string rightSide = clause.Substring(index + connective.Length);
+					// return the clause after having recursively processed the clause on each side
 					return new Clause(Create(leftSide), Create(rightSide), CreateConnective(connective), negated);
 				}
 			}
 
-			// the sentence did not have any connectives, clearly it is a symbol (fact)
-			return new Symbol(sentence.Replace("~", ""), sentence.StartsWith("~"));
+			// the clause did not have any connectives, clearly it is a symbol (fact)
+			return new Symbol(clause.Replace("~", ""), clause.StartsWith("~"));
 		}
 
 		/// <summary>
@@ -84,16 +84,16 @@ namespace iengine.Utils
 		}
 		
 		/// <summary>
-		/// Checks if the sentence up to the specified index is perfectly bracketed (or not bracketed at all) and can be further processed.
+		/// Checks if the clause up to the specified index is perfectly bracketed (or not bracketed at all) and can be further processed.
 		/// </summary>
-		/// <returns><c>true</c> the part of the sentence can be processed; otherwise, <c>false</c>.</returns>
-		/// <param name="sentence">The sentence to check.</param>
+		/// <returns><c>true</c> the part of the clause can be processed; otherwise, <c>false</c>.</returns>
+		/// <param name="clause">The clause to check.</param>
 		/// <param name="endIndex">Where to stop checking.</param>
-		private static bool CanProcess(string sentence, int endIndex) {
+		private static bool CanProcess(string clause, int endIndex) {
 			int count = 0;
 			
 			for (int i = 0; i < endIndex; ++i) {
-				string ch = sentence.Substring(i, 1);
+				string ch = clause.Substring(i, 1);
 				// increment the counter if we find a (
 				if (ch == "(") ++count;
 				// increment the counter if we find a )
@@ -105,17 +105,17 @@ namespace iengine.Utils
 		}
 
 		/// <summary>
-		/// Determines if the sentence is surrounded by brackets.
+		/// Determines if the clause is surrounded by brackets.
 		/// </summary>
-		/// <returns><c>true</c> if the sentence is surrounded by brackets; otherwise, <c>false</c>.</returns>
-		/// <param name="sentence">The sentence to check.</param>
-		private static bool IsSentenceBracketed(string sentence) {
+		/// <returns><c>true</c> if the clause is surrounded by brackets; otherwise, <c>false</c>.</returns>
+		/// <param name="clause">The clause to check.</param>
+		private static bool IsClauseBracketed(string clause) {
 			int count = 0;
 			bool foundOneSet = false;
-			int endIndex = sentence.Length;
+			int endIndex = clause.Length;
 
 			for (int i = 0; i < endIndex; ++i) {
-				String ch = sentence.Substring(i, 1);
+				String ch = clause.Substring(i, 1);
 				// increment the counter if we find a (
 				if (ch == "(") ++count;
 
@@ -125,7 +125,7 @@ namespace iengine.Utils
 					foundOneSet = true; // we've found at least one set
 				}
 
-				// if we have found at least one ( and each has a matching ) and we're not at the end of the string, clearly this sentence isn't surrounded by brackets
+				// if we have found at least one ( and each has a matching ) and we're not at the end of the string, clearly this clause isn't surrounded by brackets
 				if (foundOneSet && count == 0 && i < endIndex - 1) {
 					return false;
 				}
@@ -136,21 +136,21 @@ namespace iengine.Utils
 		}
 
 		/// <summary>
-		/// Removes any brackets surrounding the sentence as well as any negation for the sentence. By removing these we make it easier to process the sentence.
+		/// Removes any brackets surrounding the clause as well as any negation for the clause. By removing these we make it easier to process the clause.
 		/// </summary>
-		/// <returns>The prepared sentence.</returns>
-		/// <param name="sentence">The sentence to prepare.</param>
-		private static String PrepareSentence(string sentence) {
-			// if the sentence wasn't bracketed we don't need to do anything to the sentence
-			if (!IsSentenceBracketed(sentence)) return sentence;
+		/// <returns>The prepared clause.</returns>
+		/// <param name="clause">The clause to prepare.</param>
+		private static String PrepareClause(string clause) {
+			// if the clause wasn't bracketed we don't need to do anything to the clause
+			if (!IsClauseBracketed(clause)) return clause;
 
 			// determine the starting index to trim brackets and negation
 			int startIndex = 0;
-			if (sentence.StartsWith("(")) startIndex = 1;
-			else if (sentence.StartsWith("~(")) startIndex = 2;
+			if (clause.StartsWith("(")) startIndex = 1;
+			else if (clause.StartsWith("~(")) startIndex = 2;
 
-			// return the bracket-less sentence
-			return sentence.Substring(startIndex, sentence.Length - startIndex - 1);
+			// return the bracket-less clause
+			return clause.Substring(startIndex, clause.Length - startIndex - 1);
 		}
 	}
 }

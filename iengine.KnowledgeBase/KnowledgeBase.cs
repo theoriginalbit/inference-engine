@@ -25,7 +25,7 @@ namespace iengine.Utils
 			// remove spaces, spaces are annoying
 			tell = tell.Replace(" ", "");
 
-			// split the knowledge base by semi-colons and create an ISolvable for each sentence
+			// split the knowledge base by semi-colons and create an ISolvable for each clause
 			foreach (string s in tell.Split(new string[]{";"}, StringSplitOptions.RemoveEmptyEntries))
 				Solvables.Add(SolvableFactory.Create(s));
 		}
