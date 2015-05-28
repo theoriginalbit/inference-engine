@@ -54,7 +54,7 @@ namespace iengine.Utils
 					// "split" out the right side of the sentence
 					string rightSide = sentence.Substring(index + connective.Length);
 					// return the sentence after having recursively processed the sentence on each side
-					return new Sentence(Create(leftSide), Create(rightSide), CreateConnective(connective), negated);
+					return new Clause(Create(leftSide), Create(rightSide), CreateConnective(connective), negated);
 				}
 			}
 

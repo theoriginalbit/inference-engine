@@ -7,7 +7,7 @@ namespace iengine.Utils
 	/// <summary>
 	/// A solvable object that contains more than one symbol.
 	/// </summary>
-	public class Sentence : ISolvable
+	public class Clause : ISolvable
 	{
 		/// <summary>
 		/// Gets the left solvable.
@@ -31,7 +31,7 @@ namespace iengine.Utils
 		/// <param name="right">the right solvable</param>
 		/// <param name="connective">how the solvables connect</param>
 		/// <param name = "negated">whether this sentence was negated</param>
-		public Sentence(ISolvable left, ISolvable right, IConnective connective, bool negated)
+		public Clause(ISolvable left, ISolvable right, IConnective connective, bool negated)
 		{
 			LeftSolvable = left;
 			RightSolvable = right;
