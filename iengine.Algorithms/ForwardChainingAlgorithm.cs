@@ -55,19 +55,19 @@ namespace iengine.Algorithms
 					// this is a symbol (fact), input and output are the same
 					input = output = solvable;
 				}
-				else if (solvable is Sentence)
+				else if (solvable is Clause)
 				{
 					// the left-hand side of a sentence is the input
-					input = (solvable as Sentence).LeftSolvable;
+					input = (solvable as Clause).LeftSolvable;
 					// the right-hand side of a sentence is the output
-					output = (solvable as Sentence).RightSolvable;
+					output = (solvable as Clause).RightSolvable;
 				}
 
 				ISet<string> inputSymbols = new HashSet<string>();
 				input.FillSymbols(inputSymbols);
 
 				// if this is a symbol (fact) we can add it, however if this is a sentence we only add the output symbols if all the input symbols are known
-				if (!(solvable is Sentence) || inputSymbols.Intersect(known).Count() == inputSymbols.Count)
+				if (!(solvable is Clause) || inputSymbols.Intersect(known).Count() == inputSymbols.Count)
 				{
 					output.FillSymbols(discovered);
 					processed.Add(solvable);

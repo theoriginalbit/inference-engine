@@ -34,10 +34,10 @@
   <ItemGroup>
     <Compile Include="ISolvable.cs" />
     <Compile Include="Symbol.cs" />
-    <Compile Include="Sentence.cs" />
     <Compile Include="Query.cs" />
     <Compile Include="KnowledgeBase.cs" />
     <Compile Include="SolvableFactory.cs" />
+    <Compile Include="Clause.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\iengine.Connective\iengine.Connective.csproj">

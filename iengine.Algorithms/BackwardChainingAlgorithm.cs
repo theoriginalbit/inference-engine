@@ -58,12 +58,12 @@ namespace iengine.Algorithms
 					// this is a fact, input and output are the same
 					input = output = solvable;
 				}
-				else if (solvable is Sentence)
+				else if (solvable is Clause)
 				{
 					// the left-hand side of a sentence is the input
-					input = (solvable as Sentence).LeftSolvable;
+					input = (solvable as Clause).LeftSolvable;
 					// the right-hand side of a sentence is the output
-					output = (solvable as Sentence).RightSolvable;
+					output = (solvable as Clause).RightSolvable;
 				}
 
 				// get the symbols in the output of the sentence
